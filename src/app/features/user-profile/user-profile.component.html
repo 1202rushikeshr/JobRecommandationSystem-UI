@@ -1,156 +1,108 @@
 <div class="form-wrapper">
   <!-- <h2>Complete Your Profile</h2> -->
-    <form (ngSubmit)="onSubmit()" #profileForm="ngForm">
-      <!-- <table class="profile-table">
-        <tr>
-          <td><label>First Name:</label></td>
-          <td><input type="text" [value]="firstName" /></td>
-        </tr>
-        <tr>
-          <td><label>Last Name:</label></td>
-          <td><input type="text" [value]="lastName" /></td>
-        </tr>
-        <tr>
-          <td><label>Email:</label></td>
-          <td><input type="email" [value]="email" readonly /></td>
-        </tr>
-        <tr>
-          <td><label>Current Location:</label></td>
-          <td><input type="text" name="location" [(ngModel)]="user.location" required class="form-control"/></td>
-        </tr>
-        <tr>
-          <td><label>Skills:</label></td>
-          <td><input type="text" name="skills" [(ngModel)]="user.skills" required /></td>
-        </tr>
-        <tr>
-          <td><label>Contact Number:</label></td>
-          <td><input type="text" name="contact" [(ngModel)]="user.contact" required /></td>
-        </tr>
-        <tr>
-          <td><label>Willing to Relocate:</label></td>
-          <td>
-            <select name="relocate" [(ngModel)]="user.relocate" required>
-              <option [value]="true">Yes</option>
-              <option [value]="false">No</option>
-            </select>
-          </td>
-        </tr>
-        <tr>
-          <td><label>Work Authorization:</label></td>
-          <td>
-            <select name="auth" [(ngModel)]="user.auth" required>
-              <option value="USC">USC</option>
-              <option value="GC">GC</option>
-              <option value="EAD">EAD</option>
-              <option value="VisaSponsorship">Visa Sponsorship</option>
-            </select>
-          </td>
-        </tr>
-        <tr>
-          <td><label>Total Experience (in months):</label></td>
-          <td><input type="number" name="experience" [(ngModel)]="user.experience" required /></td>
-        </tr>
-        <tr>
-          <td><label>Upload Resume (PDF only):</label></td>
-          <td><input type="file" (change)="onFileSelected($event)" accept=".pdf" required /></td>
-        </tr>
-        <tr>
-          <td colspan="2" class="submit-row">
-            <button type="submit">Submit</button>
-          </td>
-        </tr>
-      </table> -->
-
-      <div class="container mt-5">
-        <div class="card shadow">
-          <div class="card-body">
-            <div class="profile-header">
-              <h3 class="mb-0">Complete Your Profile</h3>
-            </div>
-
-            <hr>
+    <div class="container mt-5">
+      <div class="card shadow">
+        <div class="card-header p-4">
+          <h2 class="mb-0">Complete Your Profile</h2>
+        </div>
+        <div class="card-body">
+          @if(!uploadSection){
             <div class="row">
-            <div class="col-md-12 p-5 pt-3">
-            <form>
-              <div class="row mb-3">
-                <div class="col-md-6">
-                  <label class="form-label">First Name</label>
-                  <input type="text" [value]="firstName" class="form-control"/>
+            <div class="col-md-12 p-lg-5 pt-lg-3">
+              <form [formGroup]="fileUpload">
+                <div class="row mb-3">
+                  <div class="col-md-6">
+                    <label class="form-label">Upload Resume (PDF only)</label>
+                    <input formControlName="uploadResume" class="form-control" type="file"
+                    accept=".doc,.docx,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document, application/pdf"
+                    required />
+                  </div>
                 </div>
-                <div class="col-md-6">
-                  <label class="form-label">Last Name</label>
-                  <input type="text" [value]="lastName" class="form-control"/>
-                </div>
-              </div>
-              <div class="row mb-3">
-                <div class="col-md-6">
-                  <label class="form-label">Email</label>
-                  <input type="email" [value]="email" readonly class="form-control"/>
-                </div>
-                <div class="col-md-6">
-                  <label class="form-label">Current Location</label>
-                  <input type="text" name="location" [(ngModel)]="user.location" required class="form-control"/>
-                </div>
-              </div>
-              <div class="row mb-3">
-                <div class="col-md-6">
-                  <label class="form-label">Skills</label>
-                  <input type="text" name="skills" [(ngModel)]="user.skills" required class="form-control"/>
-                </div>
-                <div class="col-md-6">
-                  <label class="form-label">Contact Number</label>
-                  <input type="text" name="contact" [(ngModel)]="user.contact" required class="form-control"/>
-                </div>
-              </div>
-              <div class="row mb-3">
-                <div class="col-md-6">
-                  <label class="form-label">Willing to Relocate</label>
-                  <select class="form-select" aria-label="Default select example" [(ngModel)]="user.relocate" required >
-                    <option [value]="true">Yes</option>
-                    <option [value]="false">No</option>
-                  </select>
-                </div>
-                <div class="col-md-6">
-                  <label class="form-label">Work Authorization</label>
-                  <select name="auth" [(ngModel)]="user.auth" required  class="form-select">
-                    <option value="USC">USC</option>
-                    <option value="GC">GC</option>
-                    <option value="EAD">EAD</option>
-                    <option value="VisaSponsorship">Visa Sponsorship</option>
-                  </select>
-                </div>
-              </div>
-              <div class="row mb-3">
-                <div class="col-md-6">
-                  <label class="form-label">Total Experience (in months)</label>
-                  <input type="number" name="experience" [(ngModel)]="user.experience" required class="form-control"/>
-                </div>
-                <div class="col-md-6">
-                  <label class="form-label">Upload Resume (PDF only)</label>
-                  <input class="form-control" type="file" (change)="onFileSelected($event)" accept=".pdf" required />
-                </div>
-              </div>
 
-              <!-- <div class="row mb-3">
-            <div class="col-md-6">
-              <label class="form-label">Phone</label>
-              <input type="text" class="form-control" value="+1234567890">
-            </div>
-            <div class="col-md-6">
-              <label class="form-label">Location</label>
-              <input type="text" class="form-control" value="New York, USA">
-            </div>
-          </div> -->
-
-
-              <div class="text-end">
-                <button type="submit" class="btn btn-primary">Submit</button>
-              </div>
-            </form>
-            </div>
+                <div class="row">
+                  <div class="col-md-6 mt-4 offset-lg-3">
+                    <button (click)="test()" type="button" [disabled]="!fileUpload.valid" (click)="submitResume()" class="btn btn-primary btn-lg btn-block w-100">Submit</button>
+                  </div>
+                </div>
+              </form>
             </div>
           </div>
+          }
+          @if(profileForm){
+            <div class="row">
+            <div class="col-md-12 p-lg-5 pt-lg-3">
+              <form [formGroup]="userProfileForm">
+                <div class="row mb-3">
+                  <div class="col-md-6">
+                    <label class="form-label">First Name</label>
+                    <input type="text" formControlName="firstName" class="form-control" />
+                  </div>
+                  <div class="col-md-6">
+                    <label class="form-label">Last Name</label>
+                    <input type="text" formControlName="lastName" class="form-control" />
+                  </div>
+                </div>
+                <div class="row mb-3">
+                  <div class="col-md-6">
+                    <label class="form-label">Email</label>
+                    <input formControlName="email" type="email" class="form-control" />
+                  </div>
+                  <div class="col-md-6">
+                    <label class="form-label">Current Location</label>
+                    <!-- <input formControlName="currentLocation" type="text" name="location" [(ngModel)]="user.location" required class="form-control" /> -->
+                    <input formControlName="currentLocation" type="text" name="location" required class="form-control" />
+                  </div>
+                </div>
+                <div class="row mb-3">
+                  <div class="col-md-6">
+                    <label class="form-label">Skills</label>
+                    <!-- <input formControlName="skills" type="text" name="skills" [(ngModel)]="user.skills" required class="form-control" /> -->
+                    <input formControlName="skills" type="text" name="skills" required class="form-control" />
+                  </div>
+                  <div class="col-md-6">
+                    <label class="form-label">Contact Number</label>
+                    <!-- <input formControlName="contactNumber" type="text" name="contact" [(ngModel)]="user.contact" required class="form-control" /> -->
+                    <input formControlName="contactNumber" type="text" name="contact" required class="form-control" />
+                  </div>
+                </div>
+                <div class="row mb-3">
+                  <div class="col-md-6">
+                    <label class="form-label">Willing to Relocate</label>
+                    <!-- <select  formControlName="relocate" class="form-select" aria-label="Default select example" [(ngModel)]="user.relocate" -->
+                    <select  formControlName="relocate" class="form-select" aria-label="Default select example" required>
+                      <option [value]="true">Yes</option>
+                      <option [value]="false">No</option>
+                    </select>
+                  </div>
+                  <div class="col-md-6">
+                    <label class="form-label">Work Authorization</label>
+                    <!-- <select formControlName="workAuthorization" name="auth" [(ngModel)]="user.auth" required class="form-select"> -->
+                    <select formControlName="workAuthorization" name="auth" required class="form-select">
+                      <option value="USC">USC</option>
+                      <option value="GC">GC</option>
+                      <option value="EAD">EAD</option>
+                      <option value="VisaSponsorship">Visa Sponsorship</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="row mb-3">
+                  <div class="col-md-6">
+                    <label class="form-label">Total Experience (in months)</label>
+                    <!-- <input formControlName="totalExperience" type="number" name="experience" [(ngModel)]="user.experience" required -->
+                    <input formControlName="totalExperience" type="number" name="experience" required
+                      class="form-control" />
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-6 mt-4 offset-lg-3">
+                    <button (click)="test()" type="submit" [disabled]="!userProfileForm.valid" class="btn btn-primary btn-lg btn-block w-100">Submit</button>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+          }
+        </div>
         </div>
       </div>
-    </form>
-  </div>
+    </div>

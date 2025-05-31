@@ -23,7 +23,7 @@ export class UserService {
     );
   }
 
- addUserToBackend$(formData: FormData): Observable<any> {
+ addUserToBackend(formData: any): Observable<any> {
   return this.auth.getOrRenewAccessToken$().pipe(
     switchMap((token) =>
       this.http.post('https://api.example.com/addUser', formData, {
